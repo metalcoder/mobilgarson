@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.volcaniccoder.mobilgarson">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:name=".MobilGarsonApp"
         android:allowBackup="true"
@@ -11,9 +13,7 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".login.LoginActivity"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar">
-
-        </activity>
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
             android:name=".SplashActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar">
@@ -23,6 +23,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".dashboard.DashboardActivity" />
+        <activity android:name=".operations.OperationsActivity"></activity>
     </application>
 
 </manifest>
