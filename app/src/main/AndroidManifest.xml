@@ -24,7 +24,9 @@
             </intent-filter>
         </activity>
         <activity android:name=".dashboard.DashboardActivity" />
-        <activity android:name=".operations.OperationsActivity"></activity>
+        <activity
+            android:name=".operations.OperationsActivity"
+            android:theme="@style/AppThemeNoToolbar"/>
     </application>
 
 </manifest>

@@ -50,6 +50,8 @@ public class DashboardAdapter extends RecyclerView.Adapter<DashboardAdapter.View
         RestaurantModel restaurantModel = model.get(position);
 
         holder.restaurantName.setText(restaurantModel.getRestaurantName());
+        holder.restaurantPoint.setText(Float.toString(restaurantModel.getQualityPoint()));
+        holder.restaurantInfo.setText(restaurantModel.getRestaurantInfo());
 
         Picasso.with(mContext)
                 .load(restaurantModel.getImageUrl())
@@ -79,6 +81,10 @@ public class DashboardAdapter extends RecyclerView.Adapter<DashboardAdapter.View
         ImageView restaurantLogo;
         @BindView(R.id.itemDashboardTextView)
         TextView restaurantName;
+        @BindView(R.id.itemDashboardPointTextView)
+        TextView restaurantPoint;
+        @BindView(R.id.itemDashboardInfoTextView)
+        TextView restaurantInfo;
 
         public ViewHolder(View itemView) {
             super(itemView);

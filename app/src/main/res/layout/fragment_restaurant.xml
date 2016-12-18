@@ -1,0 +1,48 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="8dp">
+
+    <Button
+        android:id="@+id/buttonCallWaiter"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:background="@color/colorAccent"
+        android:drawableLeft="@android:drawable/ic_popup_reminder"
+        android:drawablePadding="16dp"
+        android:gravity="center"
+        android:padding="8dp"
+        android:text="Garson Çağır"
+        android:textColor="#ffffff"
+        android:textStyle="bold" />
+
+    <Button
+        android:id="@+id/buttonCallPrice"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:background="@color/colorAccent"
+        android:drawableLeft="@android:drawable/ic_popup_reminder"
+        android:drawablePadding="16dp"
+        android:padding="8dp"
+        android:text="Hesap İste"
+        android:textColor="#ffffff"
+        android:textStyle="bold" />
+
+    <Button
+        android:id="@+id/buttonReservation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:background="@color/colorAccent"
+        android:drawableLeft="@android:drawable/ic_popup_reminder"
+        android:drawablePadding="16dp"
+        android:padding="8dp"
+        android:text="Rezervasyon"
+        android:textColor="#ffffff"
+        android:textStyle="bold" />
+
+
+</LinearLayout>

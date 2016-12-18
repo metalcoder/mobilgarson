@@ -17,7 +17,7 @@ import butterknife.ButterKnife;
 
 public class DashboardActivity extends AppCompatActivity implements IDashboardView , OnAdapterClickListener {
 
-    //@BindView(R.id.activityDashboardRecyclerView)
+    @BindView(R.id.activityDashboardRecyclerView)
     RecyclerView mRecyclerView;
     private RecyclerView.LayoutManager mLayoutManager;
     private RecyclerView.Adapter mAdapter;
@@ -26,25 +26,24 @@ public class DashboardActivity extends AppCompatActivity implements IDashboardVi
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        //ButterKnife.bind(this);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dashboard);
+        ButterKnife.bind(this);
         init();
     }
 
     @Override
-    public void init(){
+        public void init(){
 
-        mRecyclerView = (RecyclerView)findViewById(R.id.activityDashboardRecyclerView);
-        presenter = new DashboardPresenter(this);
+            presenter = new DashboardPresenter(this);
 
-        mLayoutManager = new LinearLayoutManager(this);
-        mRecyclerView.setLayoutManager(mLayoutManager);
+            mLayoutManager = new LinearLayoutManager(this);
+            mRecyclerView.setLayoutManager(mLayoutManager);
 
-        mAdapter = new DashboardAdapter(presenter.getRestaurants(),this,this);
-        mRecyclerView.setAdapter(mAdapter);
+            mAdapter = new DashboardAdapter(presenter.getRestaurants(),this,this);
+            mRecyclerView.setAdapter(mAdapter);
 
-    }
+        }
 
     @Override
     public void onClickAdapterListener(View view, int position) {
@@ -55,4 +54,7 @@ public class DashboardActivity extends AppCompatActivity implements IDashboardVi
     public void onLongClickAdapterListener(View view, int position) {
 
     }
+
+    @Override
+    public void onBackPressed() {}
 }
