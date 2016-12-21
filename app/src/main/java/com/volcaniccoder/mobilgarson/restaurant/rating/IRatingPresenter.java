@@ -7,5 +7,7 @@ import java.util.List;
 
 public interface IRatingPresenter {
 
-    List<CommentModel> getComments();
+    void getComments();
+
+    void createComment(String comment);
 }

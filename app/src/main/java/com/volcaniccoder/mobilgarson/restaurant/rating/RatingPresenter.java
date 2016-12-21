@@ -1,25 +1,78 @@
 package com.volcaniccoder.mobilgarson.restaurant.rating;
 
+import com.volcaniccoder.mobilgarson.MobilGarsonApp;
+import com.volcaniccoder.mobilgarson.adapters.DashboardAdapter;
+import com.volcaniccoder.mobilgarson.api.MobilGarsonService;
+import com.volcaniccoder.mobilgarson.login.LoginPresenterImpl;
 import com.volcaniccoder.mobilgarson.models.CommentModel;
+import com.volcaniccoder.mobilgarson.models.pojo.RestaurantCommentResult;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.inject.Inject;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class RatingPresenter implements IRatingPresenter {
 
     private IRatingView view;
 
-    public RatingPresenter(IRatingView view) {
+    @Inject
+    MobilGarsonService service;
+
+    public RatingPresenter(IRatingView view, MobilGarsonApp application) {
         this.view = view;
+        application.getNetComponent().inject(this);
     }
 
-    public List<CommentModel> getComments(){
+    @Override
+    public void getComments() {
 
-        List<CommentModel> list = new ArrayList<>();
-        list.add(new CommentModel("Harika bir restorant","17.12.2016"));
-        list.add(new CommentModel("Yemekler gayet güzeldi , bir dahaki sefer yine oradayım","02.12.2016"));
-        list.add(new CommentModel("Ben pek beğenmedim , hizmetleri fazla iyi değildi","21.11.2016"));
+        service.getRestaurantComments(DashboardAdapter.restaurantId).enqueue(new Callback<List<RestaurantCommentResult>>() {
+            @Override
+            public void onResponse(Call<List<RestaurantCommentResult>> call, Response<List<RestaurantCommentResult>> response) {
+                List<RestaurantCommentResult> commentResults = response.body();
 
-        return list;
+                if (commentResults != null) {
+                    List<CommentModel> commentModelList = new ArrayList<CommentModel>();
+                    for (RestaurantCommentResult result : commentResults) {
+                        commentModelList.add(new CommentModel(result.getComment(), result.getDate()));
+                    }
+                    view.listComments(commentModelList);
+                } else {
+                    view.error();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<RestaurantCommentResult>> call, Throwable t) {
+                view.error();
+            }
+        });
+
+    }
+
+    @Override
+    public void createComment(String comment) {
+        service.createComment((long) LoginPresenterImpl.userId, (long) DashboardAdapter.restaurantId, comment).enqueue(new Callback<RestaurantCommentResult>() {
+            @Override
+            public void onResponse(Call<RestaurantCommentResult> call, Response<RestaurantCommentResult> response) {
+                RestaurantCommentResult result = response.body();
+
+                if (result != null) {
+                    view.refreshComments();
+                } else {
+                    view.error();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<RestaurantCommentResult> call, Throwable t) {
+                view.error();
+            }
+        });
     }
 }

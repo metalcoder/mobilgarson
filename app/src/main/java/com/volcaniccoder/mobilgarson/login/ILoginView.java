@@ -5,4 +5,9 @@ package com.volcaniccoder.mobilgarson.login;
  */
 
 public interface ILoginView {
+
+    void navigateToDashboard();
+
+    void loginFailed();
+
 }

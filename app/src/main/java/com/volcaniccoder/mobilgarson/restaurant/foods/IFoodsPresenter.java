@@ -6,5 +6,7 @@ import java.util.List;
 
 public interface IFoodsPresenter {
 
-    List<FoodModel> getFoods();
+    void getFoods();
+
+    void giveOrder(long productId , int piece);
 }

@@ -5,4 +5,7 @@ package com.volcaniccoder.mobilgarson.login;
  */
 
 public interface ILoginPresenter {
+
+    void validateLogin(String mail,String password);
 }
+

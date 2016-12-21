@@ -2,6 +2,7 @@ package com.volcaniccoder.mobilgarson.models;
 
 public class RestaurantModel {
 
+    private int restaurantId;
     private String restaurantName;
     private String imageUrl;
     private String restaurantInfo;
@@ -12,6 +13,14 @@ public class RestaurantModel {
         this.restaurantName = restaurantName;
         this.restaurantInfo = restaurantInfo;
         this.qualityPoint = qualityPoint;
+    }
+
+    public int getRestaurantId() {
+        return restaurantId;
+    }
+
+    public void setRestaurantId(int restaurantId) {
+        this.restaurantId = restaurantId;
     }
 
     public String getRestaurantName() {

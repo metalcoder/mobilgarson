@@ -26,7 +26,11 @@
         <activity android:name=".dashboard.DashboardActivity" />
         <activity
             android:name=".operations.OperationsActivity"
-            android:theme="@style/AppThemeNoToolbar"/>
+            android:theme="@style/AppThemeNoToolbar" />
+        <activity
+            android:name=".register.RegisterActivity"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+        <activity android:name=".table.TableActivity"></activity>
     </application>
 
 </manifest>

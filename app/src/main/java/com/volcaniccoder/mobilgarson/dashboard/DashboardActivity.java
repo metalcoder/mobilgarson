@@ -6,11 +6,18 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.Toast;
 
+import com.volcaniccoder.mobilgarson.MobilGarsonApp;
 import com.volcaniccoder.mobilgarson.R;
 import com.volcaniccoder.mobilgarson.adapters.DashboardAdapter;
 import com.volcaniccoder.mobilgarson.listeners.OnAdapterClickListener;
+import com.volcaniccoder.mobilgarson.login.LoginActivity;
+import com.volcaniccoder.mobilgarson.login.LoginPresenterImpl;
+import com.volcaniccoder.mobilgarson.models.RestaurantModel;
 import com.volcaniccoder.mobilgarson.operations.OperationsActivity;
+
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -35,19 +42,29 @@ public class DashboardActivity extends AppCompatActivity implements IDashboardVi
     @Override
         public void init(){
 
-            presenter = new DashboardPresenter(this);
+            presenter = new DashboardPresenter(this,((MobilGarsonApp) getApplication()));
 
             mLayoutManager = new LinearLayoutManager(this);
             mRecyclerView.setLayoutManager(mLayoutManager);
 
-            mAdapter = new DashboardAdapter(presenter.getRestaurants(),this,this);
-            mRecyclerView.setAdapter(mAdapter);
-
+            presenter.getRestaurants();
         }
+
+    public void listRestaurants(List<RestaurantModel> restaurantModelList){
+        mAdapter = new DashboardAdapter(restaurantModelList,this,this ,((MobilGarsonApp) getApplication()));
+        mRecyclerView.setAdapter(mAdapter);
+    }
+
+    public void errorMessage(){
+        Toast.makeText(this, "Hata", Toast.LENGTH_SHORT).show();
+    }
 
     @Override
     public void onClickAdapterListener(View view, int position) {
-        startActivity(new Intent(this, OperationsActivity.class));
+        Intent intent = new Intent(this, OperationsActivity.class);
+        Toast.makeText(this, "" + DashboardAdapter.restaurantId + "-"+ LoginPresenterImpl.userId + "", Toast.LENGTH_SHORT).show();
+        startActivity(intent);
+
     }
 
     @Override

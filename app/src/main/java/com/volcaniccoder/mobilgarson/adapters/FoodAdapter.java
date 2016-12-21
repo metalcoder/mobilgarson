@@ -17,15 +17,23 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
+import com.volcaniccoder.mobilgarson.MobilGarsonApp;
 import com.volcaniccoder.mobilgarson.R;
+import com.volcaniccoder.mobilgarson.api.MobilGarsonService;
 import com.volcaniccoder.mobilgarson.listeners.OnAdapterClickListener;
 import com.volcaniccoder.mobilgarson.listeners.OnFoodOrderClickListener;
 import com.volcaniccoder.mobilgarson.models.FoodModel;
+import com.volcaniccoder.mobilgarson.models.pojo.ProductImageResult;
 
 import java.util.List;
 
+import javax.inject.Inject;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class FoodAdapter extends RecyclerView.Adapter<FoodAdapter.ViewHolder> {
 
@@ -35,12 +43,16 @@ public class FoodAdapter extends RecyclerView.Adapter<FoodAdapter.ViewHolder> {
     private OnFoodOrderClickListener orderListener;
     private Context mContext;
 
+    @Inject
+    MobilGarsonService service;
+
     public FoodAdapter(List<FoodModel> model, OnAdapterClickListener listener,
-                       OnFoodOrderClickListener orderListener, Context context) {
+                       OnFoodOrderClickListener orderListener, Context context ,MobilGarsonApp application) {
         this.model = model;
         this.listener = listener;
         this.orderListener = orderListener;
         this.mContext = context;
+        application.getNetComponent().inject(this);
     }
 
 
@@ -62,22 +74,38 @@ public class FoodAdapter extends RecyclerView.Adapter<FoodAdapter.ViewHolder> {
         holder.foodTitle.setText(foodModel.getFoodName());
         holder.foodRating.setText(Float.toString(foodModel.getFoodRating()));
 
-        Picasso.with(mContext)
-                .load(foodModel.getImageUrl1())
-                .fit()
-                .into(holder.foodImageFirst);
+        service.getProductImageUrl(foodModel.getFoodId()).enqueue(new Callback<List<ProductImageResult>>() {
+            @Override
+            public void onResponse(Call<List<ProductImageResult>> call, Response<List<ProductImageResult>> response) {
+                List<ProductImageResult> imageResults = response.body();
 
-        Picasso.with(mContext)
-                .load(foodModel.getImageUrl2())
-                .fit()
-                .into(holder.foodImageSecond);
+                if (imageResults != null && imageResults.size() >=3){
 
-        Picasso.with(mContext)
-                .load(foodModel.getImageUrl3())
-                .fit()
-                .into(holder.foodImageThird);
+                    Picasso.with(mContext)
+                            .load(imageResults.get(0).getImagestring())
+                            .fit()
+                            .into(holder.foodImageFirst);
 
-        holder.foodPrice.setText(foodModel.getFoodPrice());
+                    Picasso.with(mContext)
+                            .load(imageResults.get(1).getImagestring())
+                            .fit()
+                            .into(holder.foodImageSecond);
+
+                    Picasso.with(mContext)
+                            .load(imageResults.get(2).getImagestring())
+                            .fit()
+                            .into(holder.foodImageThird);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<ProductImageResult>> call, Throwable t) {
+
+            }
+        });
+
+
+        holder.foodPrice.setText(foodModel.getFoodPrice() + "TL");
 
 
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(mContext, R.array.food_count_array, android.R.layout.simple_spinner_item);

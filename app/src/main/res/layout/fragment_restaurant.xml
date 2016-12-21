@@ -44,5 +44,18 @@
         android:textColor="#ffffff"
         android:textStyle="bold" />
 
+    <Button
+        android:id="@+id/buttonChooseTable"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:background="@color/colorAccent"
+        android:drawableLeft="@android:drawable/ic_popup_reminder"
+        android:drawablePadding="16dp"
+        android:padding="8dp"
+        android:text="Masa Seç"
+        android:textColor="#ffffff"
+        android:textStyle="bold" />
+
 
 </LinearLayout>

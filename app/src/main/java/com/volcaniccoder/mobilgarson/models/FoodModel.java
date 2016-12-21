@@ -2,7 +2,7 @@ package com.volcaniccoder.mobilgarson.models;
 
 public class FoodModel {
 
-    //private int foodId;
+    private int foodId;
     private String foodName;
     private String foodPrice;
     private String imageUrl1;
@@ -16,6 +16,14 @@ public class FoodModel {
         this.foodPrice = foodPrice;
         this.foodRating = foodRating;
         this.amountOfOrder = 1;
+    }
+
+    public int getFoodId() {
+        return foodId;
+    }
+
+    public void setFoodId(int foodId) {
+        this.foodId = foodId;
     }
 
     public String getFoodName() {

@@ -32,4 +32,6 @@ public class ViewPagerAdapter extends FragmentPagerAdapter {
     public CharSequence getPageTitle(int position) {
         return tabModelList.get(position).getTabName();
     }
+
+
 }
