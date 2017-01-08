@@ -1,9 +1,12 @@
 package com.volcaniccoder.mobilgarson.api;
 
+import com.volcaniccoder.mobilgarson.models.pojo.BillResult;
+import com.volcaniccoder.mobilgarson.models.pojo.EmployeeResult;
 import com.volcaniccoder.mobilgarson.models.pojo.LoginUserResult;
 import com.volcaniccoder.mobilgarson.models.pojo.OrderResult;
 import com.volcaniccoder.mobilgarson.models.pojo.ProductImageResult;
 import com.volcaniccoder.mobilgarson.models.pojo.ProductResult;
+import com.volcaniccoder.mobilgarson.models.pojo.RequestResult;
 import com.volcaniccoder.mobilgarson.models.pojo.RestaurantCommentResult;
 import com.volcaniccoder.mobilgarson.models.pojo.RestaurantImageResult;
 import com.volcaniccoder.mobilgarson.models.pojo.RestaurantResult;
@@ -66,6 +69,14 @@ public interface MobilGarsonService {
             @Field("comment") String comment
     );
 
+    @FormUrlEncoded
+    @PUT("complaintservice/complaints")
+    Call<Void> createComplaint(
+            @Field("userid") long userId,
+            @Field("restaurantid") long restaurantId,
+            @Field("complainticerigi") String complaint
+    );
+
     @GET("productservice/products/restaurant/{id}")
     Call<List<ProductResult>> getRestaurantProducts(
             @Path("id") long restaurantId
@@ -83,7 +94,7 @@ public interface MobilGarsonService {
 
     @FormUrlEncoded
     @POST("tableservice/tables/open")
-    Call<Void> openTable(
+    Call<String> openTable(
             @Field("tableid") long id
     );
 
@@ -95,4 +106,24 @@ public interface MobilGarsonService {
             @Field("piece") long piece,
             @Field("tableid") long tableId
     );
+
+    @GET("billservice/{tableid}")
+    Call<BillResult> getBill(
+        @Path("tableid") long id
+    );
+
+    @GET("employeeservice/employee/restaurant/{id}")
+    Call<List<EmployeeResult>> getEmployees(
+            @Path("id") long restaurantId
+    );
+
+    @FormUrlEncoded
+    @PUT("requestservice")
+    Call<RequestResult> createRequest(
+            @Field("tableid") long tableId,
+            @Field("userid") long userId,
+            @Field("restaurantid") long restId,
+            @Field("garsonid") long garsonId
+    );
+
 }

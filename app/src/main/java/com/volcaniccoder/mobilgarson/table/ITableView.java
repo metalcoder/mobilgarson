@@ -10,7 +10,7 @@ import java.util.List;
 
 public interface ITableView {
 
-    void listRestaurants(List<TableResult> tablesList);
+    void listRestaurants(List<TableResult> tablesList,long tableId);
 
     void error();
 

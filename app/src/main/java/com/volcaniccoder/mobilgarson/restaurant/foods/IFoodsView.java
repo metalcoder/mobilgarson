@@ -11,4 +11,6 @@ public interface IFoodsView {
     void error();
 
     void orderReceived();
+
+    void tableNotChoosedError();
 }

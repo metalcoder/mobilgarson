@@ -1,11 +1,10 @@
-package com.volcaniccoder.mobilgarson.table;
-
-import android.content.SharedPreferences;
+package com.volcaniccoder.mobilgarson.reservation;
 
 import com.volcaniccoder.mobilgarson.MobilGarsonApp;
 import com.volcaniccoder.mobilgarson.adapters.DashboardAdapter;
 import com.volcaniccoder.mobilgarson.api.MobilGarsonService;
 import com.volcaniccoder.mobilgarson.models.pojo.TableResult;
+import com.volcaniccoder.mobilgarson.register.IRegisterView;
 
 import java.util.List;
 
@@ -16,24 +15,20 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 /**
- * Created by volkan.sahin on 21.12.2016.
+ * Created by volkan.sahin on 7.01.2017.
  */
 
-public class TablePresenterImpl implements ITablePresenter {
-
-    private ITableView view;
+public class ReservationPresenterImpl implements IReservationPresenter {
 
     @Inject
     MobilGarsonService service;
-    @Inject
-    SharedPreferences preferences;
+    IReservationView view;
 
-    //public static long tableId = -1;
-
-    public TablePresenterImpl(ITableView view, MobilGarsonApp application) {
+    public ReservationPresenterImpl(IReservationView view ,MobilGarsonApp application) {
         this.view = view;
         application.getNetComponent().inject(this);
     }
+
 
     @Override
     public void getTables() {
@@ -43,7 +38,7 @@ public class TablePresenterImpl implements ITablePresenter {
                 List<TableResult> tableResults = response.body();
 
                 if (tableResults != null) {
-                    view.listRestaurants(tableResults,preferences.getLong("tableId",-1));
+                    view.listRestaurants(tableResults);
                 } else {
                     view.error();
                 }
@@ -57,20 +52,8 @@ public class TablePresenterImpl implements ITablePresenter {
     }
 
     @Override
-    public void openTable(final long id) {
-        service.openTable(id).enqueue(new Callback<String>() {
-            @Override
-            public void onResponse(Call<String> call, Response<String> response) {
-                if (response!= null && response.body().equals("OK!")){
-                    preferences.edit().putLong("tableId",id);
-                    view.tableChoosen();
-                }
-            }
+    public void createReservation(long restaurantId, String date, String clock, long userId, String name, String surname, long tableId) {
 
-            @Override
-            public void onFailure(Call<String> call, Throwable t) {
-                view.error();
-            }
-        });
     }
+
 }

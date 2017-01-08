@@ -10,4 +10,6 @@ public interface IRatingPresenter {
     void getComments();
 
     void createComment(String comment);
+
+    void createComplaint(String complaint);
 }

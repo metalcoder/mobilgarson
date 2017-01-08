@@ -1,6 +1,7 @@
 package com.volcaniccoder.mobilgarson.login;
 
 import android.app.Application;
+import android.content.SharedPreferences;
 import android.util.Log;
 
 import com.volcaniccoder.mobilgarson.MobilGarsonApp;
@@ -24,6 +25,8 @@ public class LoginPresenterImpl implements ILoginPresenter {
 
     @Inject
     MobilGarsonService service;
+    @Inject
+    SharedPreferences preferences;
 
     public LoginPresenterImpl(ILoginView loginView, MobilGarsonApp application) {
         application.getNetComponent().inject(this);
@@ -51,4 +54,10 @@ public class LoginPresenterImpl implements ILoginPresenter {
             }
         });
 
-    }}
+    }
+
+    @Override
+    public SharedPreferences getBackdoorPreferences() {
+        return preferences;
+    }
+}

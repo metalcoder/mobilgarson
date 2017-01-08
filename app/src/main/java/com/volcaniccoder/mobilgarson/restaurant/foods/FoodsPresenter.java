@@ -1,5 +1,7 @@
 package com.volcaniccoder.mobilgarson.restaurant.foods;
 
+import android.content.SharedPreferences;
+
 import com.volcaniccoder.mobilgarson.MobilGarsonApp;
 import com.volcaniccoder.mobilgarson.adapters.DashboardAdapter;
 import com.volcaniccoder.mobilgarson.api.MobilGarsonService;
@@ -23,6 +25,8 @@ public class FoodsPresenter implements IFoodsPresenter {
 
     @Inject
     MobilGarsonService service;
+    @Inject
+    SharedPreferences preferences;
 
     public FoodsPresenter(IFoodsView view, MobilGarsonApp application) {
         this.view = view;
@@ -58,10 +62,11 @@ public class FoodsPresenter implements IFoodsPresenter {
 
     @Override
     public void giveOrder(long productId, int piece) {
-        if (TablePresenterImpl.tableId == -1) {
-            view.error();
+        long tableId = preferences.getLong("tableId",-1);
+        if ( tableId == -1) {
+            view.tableNotChoosedError();
         } else {
-            service.giveOrder(DashboardAdapter.restaurantId, productId, piece, TablePresenterImpl.tableId).enqueue(new Callback<OrderResult>() {
+            service.giveOrder(DashboardAdapter.restaurantId, productId, piece, tableId).enqueue(new Callback<OrderResult>() {
                 @Override
                 public void onResponse(Call<OrderResult> call, Response<OrderResult> response) {
                     OrderResult result = response.body();

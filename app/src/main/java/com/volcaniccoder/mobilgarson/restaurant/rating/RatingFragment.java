@@ -7,11 +7,13 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
+import android.support.v7.widget.AppCompatRatingBar;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
@@ -84,6 +86,43 @@ public class RatingFragment extends Fragment implements IRatingView {
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         inflater.inflate(R.menu.rating_menu, menu);
         super.onCreateOptionsMenu(menu, inflater);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()){
+            case R.id.ratingMenuComplaint:
+                AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+                final View v = LayoutInflater.from(getContext()).inflate(R.layout.dialog_comment,null);
+                builder.setTitle("ŞİKAYET");
+                builder.setView(v);
+                ((EditText)v.findViewById(R.id.commentDialog)).setHint("Şikayetinizi buraya yazın");
+                builder.setPositiveButton("Gönder", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        presenter.createComplaint(((EditText)v.findViewById(R.id.commentDialog)).getText().toString());
+                    }
+                });
+                builder.create().show();
+                return true;
+            case R.id.ratingMenuRating:
+                AlertDialog.Builder builderRate = new AlertDialog.Builder(getContext());
+                View view1 = LayoutInflater.from(getContext()).inflate(R.layout.dialog_rate,null);
+                final AppCompatRatingBar ratingBar = (AppCompatRatingBar) view1.findViewById(R.id.appCompatRatingBar);
+                builderRate.setView(view1);
+                builderRate.setTitle("Şimdi Puanla");
+                builderRate.setPositiveButton("Puanla", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        Toast.makeText(getContext(), "" + ratingBar.getRating(), Toast.LENGTH_SHORT).show();
+                    }
+                });
+                builderRate.setNegativeButton("İptal",null);
+                builderRate.create().show();
+                Toast.makeText(getContext(), "foodButtonRate", Toast.LENGTH_SHORT).show();
+                return true;
+        }
+        return false;
     }
 
     @OnClick(R.id.fab)

@@ -30,7 +30,8 @@
         <activity
             android:name=".register.RegisterActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
-        <activity android:name=".table.TableActivity"></activity>
+        <activity android:name=".table.TableActivity" />
+        <activity android:name=".reservation.ReservationActivity"></activity>
     </application>
 
 </manifest>

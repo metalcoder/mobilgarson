@@ -75,4 +75,24 @@ public class RatingPresenter implements IRatingPresenter {
             }
         });
     }
+
+    @Override
+    public void createComplaint(String complaint) {
+        service.createComplaint((long) LoginPresenterImpl.userId, (long) DashboardAdapter.restaurantId, complaint).enqueue(new Callback<Void>() {
+            @Override
+            public void onResponse(Call<Void> call, Response<Void> response) {
+
+                if ( response != null) {
+                    view.refreshComments();
+                } else {
+                    view.error();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Void> call, Throwable t) {
+                view.error();
+            }
+        });
+    }
 }

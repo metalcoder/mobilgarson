@@ -1,8 +1,11 @@
 package com.volcaniccoder.mobilgarson.restaurant.foods;
 
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AlertDialog;
+import android.support.v7.widget.AppCompatRatingBar;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -71,6 +74,19 @@ public class FoodsFragment extends Fragment implements IFoodsView, OnAdapterClic
     public void onClickAdapterListener(View view, int position) {
         switch (view.getId()) {
             case R.id.foodButtonRate:
+                AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+                View view1 = LayoutInflater.from(getContext()).inflate(R.layout.dialog_rate,null);
+                final AppCompatRatingBar ratingBar = (AppCompatRatingBar) view1.findViewById(R.id.appCompatRatingBar);
+                builder.setView(view1);
+                builder.setTitle("Şimdi Puanla");
+                builder.setPositiveButton("Puanla", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        Toast.makeText(getContext(), "" + ratingBar.getRating(), Toast.LENGTH_SHORT).show();
+                    }
+                });
+                builder.setNegativeButton("İptal",null);
+                builder.create().show();
                 Toast.makeText(getContext(), "foodButtonRate", Toast.LENGTH_SHORT).show();
                 break;
         }
@@ -91,5 +107,9 @@ public class FoodsFragment extends Fragment implements IFoodsView, OnAdapterClic
         }
     }
 
+    @Override
+    public void tableNotChoosedError() {
+        Toast.makeText(getContext(), "Önce bir masa seçmelisiniz", Toast.LENGTH_SHORT).show();
+    }
 
 }

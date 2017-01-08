@@ -4,8 +4,11 @@ package com.volcaniccoder.mobilgarson.adapters;
 import android.app.Activity;
 import android.app.Application;
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.support.v7.widget.RecyclerView;
+import android.util.Base64;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -74,8 +77,12 @@ public class DashboardAdapter extends RecyclerView.Adapter<DashboardAdapter.View
             public void onResponse(Call<List<RestaurantImageResult>> call, Response<List<RestaurantImageResult>> response) {
                 String imageUrl = response.body().get(0).getImagestring();
 
+//                byte[] decoded = Base64.decode(imageUrl,Base64.DEFAULT);
+//                Bitmap bmp = BitmapFactory.decodeByteArray(decoded, 0, decoded.length);
+
                 restaurantModel.setImageUrl(imageUrl);
                 Picasso.with(mContext)
+                        //.load(bmp)
                         .load(restaurantModel.getImageUrl())
                         .fit()
                         .into(holder.restaurantLogo);

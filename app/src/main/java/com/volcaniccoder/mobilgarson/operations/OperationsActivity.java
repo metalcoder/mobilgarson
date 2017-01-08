@@ -1,13 +1,17 @@
 package com.volcaniccoder.mobilgarson.operations;
 
+import android.content.DialogInterface;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.EditText;
 
 import com.volcaniccoder.mobilgarson.R;
 import com.volcaniccoder.mobilgarson.adapters.ViewPagerAdapter;
@@ -16,7 +20,9 @@ import com.volcaniccoder.mobilgarson.listeners.OnAdapterClickListener;
 import com.volcaniccoder.mobilgarson.models.FragmentTabModel;
 import com.volcaniccoder.mobilgarson.models.OperationModel;
 import com.volcaniccoder.mobilgarson.restaurant.foods.FoodsFragment;
+import com.volcaniccoder.mobilgarson.restaurant.rating.IRatingPresenter;
 import com.volcaniccoder.mobilgarson.restaurant.rating.RatingFragment;
+import com.volcaniccoder.mobilgarson.restaurant.rating.RatingPresenter;
 import com.volcaniccoder.mobilgarson.restaurant.tasks.RestaurantFragment;
 
 import java.util.ArrayList;
@@ -40,6 +46,7 @@ public class OperationsActivity extends AppCompatActivity implements OnAdapterCl
     ViewPager viewPager;
 
     private IDashboardPresenter presenter;
+    private IRatingPresenter ratingPresenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -105,8 +112,10 @@ public class OperationsActivity extends AppCompatActivity implements OnAdapterCl
         switch (item.getItemId()){
             case android.R.id.home:
                 onBackPressed();
-                break;
+                return true;
+            case R.id.ratingMenuComplaint:
+                return false;
         }
-        return true;
+        return false;
     }
 }

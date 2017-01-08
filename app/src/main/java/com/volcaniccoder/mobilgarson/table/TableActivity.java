@@ -48,9 +48,9 @@ public class TableActivity extends AppCompatActivity implements ITableView, OnAd
     }
 
     @Override
-    public void listRestaurants(List<TableResult> tablesList) {
+    public void listRestaurants(List<TableResult> tablesList , long tableId) {
         this.tableResults = tablesList;
-        mAdapter = new TableAdapter(tablesList,this,this);
+        mAdapter = new TableAdapter(tablesList,tableId,this,this);
         mRecyclerView.setAdapter(mAdapter);
     }
 

@@ -3,6 +3,7 @@ package com.volcaniccoder.mobilgarson.adapters;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -28,11 +29,13 @@ public class TableAdapter extends RecyclerView.Adapter<TableAdapter.ViewHolder> 
 
 
     private List<TableResult> model;
+    private long choosenTableId;
     private OnAdapterClickListener listener;
     private Context mContext;
 
-    public TableAdapter(List<TableResult> model, OnAdapterClickListener listener,Context context) {
+    public TableAdapter(List<TableResult> model, long tableId , OnAdapterClickListener listener,Context context) {
         this.model = model;
+        this.choosenTableId = tableId;
         this.listener = listener;
         this.mContext = context;
     }
@@ -58,13 +61,17 @@ public class TableAdapter extends RecyclerView.Adapter<TableAdapter.ViewHolder> 
             holder.tableIcon.setBackgroundColor(Color.GREEN);
         }
 
+        if ((long)result.getId() == choosenTableId){
+            holder.tableIcon.setBackground(ContextCompat.getDrawable(mContext,R.drawable.ic_action_plus));
+        }
+
         holder.tableName.setText(result.getName());
         holder.tableCapacity.setText("Kapasite: " + result.getCapacity());
 
         holder.parent.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (TablePresenterImpl.tableId == -1){
+                if (choosenTableId == -1){
                     if (result.getStatu() == 1){
                         Toast.makeText(mContext, "Bu masa şu an uygun değil", Toast.LENGTH_SHORT).show();
                     }else {

@@ -4,62 +4,73 @@
     android:id="@+id/activity_login"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#049ff4"
     android:orientation="vertical"
-    tools:context="com.volcaniccoder.mobilgarson.login.LoginActivity"
-    android:background="#049ff4">
+    tools:context="com.volcaniccoder.mobilgarson.login.LoginActivity">
 
     <!-- #049ff4 -->
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="GARSO"
-        android:fontFamily="sans-serif"
-        android:textSize="48sp"
-        android:textColor="#FFF"
         android:layout_gravity="center"
-        android:layout_margin="12dp"/>
+        android:layout_margin="12dp"
+        android:fontFamily="sans-serif"
+        android:text="M-GARSON"
+        android:textColor="#FFF"
+        android:textSize="48sp" />
+
     <EditText
         android:id="@+id/loginMailEditText"
         android:layout_width="match_parent"
         android:layout_height="48dp"
-        android:hint="username"
-        android:background="@drawable/edittextbackground"
-        android:textColorHint="#ccc"
         android:layout_margin="12dp"
-        />
+        android:background="@drawable/edittextbackground"
+        android:hint="username"
+        android:textColorHint="#ccc" />
 
     <EditText
         android:id="@+id/loginPasswordEditText"
         android:layout_width="match_parent"
         android:layout_height="48dp"
-        android:hint="password"
-        android:background="@drawable/edittextbackground"
-        android:textColorHint="#ccc"
         android:layout_margin="12dp"
-        />
+        android:background="@drawable/edittextbackground"
+        android:hint="password"
+        android:textColorHint="#ccc" />
 
     <Button
         android:id="@+id/loginButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/edittextbackground"
         android:layout_margin="12dp"
-        android:text="GIRIS"/>
+        android:background="@drawable/edittextbackground"
+        android:text="GIRIS" />
+
+
+    <EditText
+        android:visibility="gone"
+        android:id="@+id/backdoorEditText"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_margin="12dp"
+        android:background="@android:color/background_dark"
+        android:textColor="@android:color/holo_green_light" />
 
     <RelativeLayout
+
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center">
 
         <TextView
             android:id="@+id/loginNewUserTextView"
-            android:layout_alignParentBottom="true"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="18sp"
-            android:text="Uye olmak icin tıklayın"/>
+            android:layout_alignParentBottom="true"
+            android:text="Uye olmak icin tıklayın"
+            android:textSize="18sp" />
 
     </RelativeLayout>
+
 
 </LinearLayout>
